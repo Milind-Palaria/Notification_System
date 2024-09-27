@@ -1,0 +1,32 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Notification Service</title>
+</head>
+<body>
+  <h1>Real-time Notification Service</h1>
+  <ul id="notifications"></ul>
+  
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    
+    // Listen for specific user notifications
+    socket.on('notification_12345', (notification) => {
+      const notificationList = document.getElementById('notifications');
+      const li = document.createElement('li');
+      li.textContent = `User-specific Notification: ${notification.message}`;
+      notificationList.appendChild(li);
+    });
+
+    // Listen for broadcast notifications
+    socket.on('broadcast_notification', (notification) => {
+      const notificationList = document.getElementById('notifications');
+      const li = document.createElement('li');
+      li.textContent = `Broadcast Notification: ${notification.message}`;
+      notificationList.appendChild(li);
+    });
+  </script>
+</body>
+</html>
